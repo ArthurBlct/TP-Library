@@ -29,6 +29,8 @@
 
 <?php
 
+require_once('db_config.php');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $psw = $_POST['password'];
