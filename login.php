@@ -7,7 +7,9 @@
 </head>
 
 <body>
-    
+
+<h1>TP library API</h1>
+<h2>Login</h2>
 <form action="" method="post">
     <div class="form-example">
         <label for="name">Username: </label>
@@ -24,6 +26,10 @@
     </div>
 </form>
 
+<br>
+<a href="signup.php">Need an account?</a>
+<br>
+
 </body>
 </html>
 
@@ -34,14 +40,33 @@ require_once('db_config.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $psw = $_POST['password'];
-    echo "<br>Username: " . $name . "<br>";
-    echo "Password: " . $psw;
+
+    // echo "<br>Username: " . $name . "<br>";
+    // echo "Password: " . $psw;
+
+    $encrypted = password_hash($psw, PASSWORD_DEFAULT);
+
+    $stm = $pdo->prepare("SELECT * FROM user WHERE name = :name");
+    $stm->execute(['name' => $name]);
+    $user = $stm->fetch();
+    if ($user) {
+        // echo "<br>Username already exists.";
+        $decrypt = password_verify($psw, $user['password']);
+        if ($decrypt) {
+            echo "Login successful.";
+        } else {
+            echo "Login failed.";
+        }
+    } else {
+        echo "Username does not exist.";
+    }
+
+
 }
 
-$encrypted = password_hash($psw, PASSWORD_DEFAULT);
 
-echo "<br><br>Encrypted Password: " . $encrypted;
+// echo "<br><br>Encrypted Password: " . $encrypted;
 
-$decrypt = password_verify($psw, $encrypted);
-echo "<br>Decrypted Password: " . $decrypt;
-echo "<br>⬆ password_verify() returns 1 if the password matches, 0 if it does not.";
+// $decrypt = password_verify($psw, $encrypted);
+// echo "<br>Decrypted Password: " . $decrypt;
+// echo "<br><br>⬆ password_verify() returns 1 if the password matches, 0 if it does not.";

@@ -1,5 +1,6 @@
-<!-- include header.php => "navbar" qui contient signup et login quand on est pas connecté -->
-<!-- sinon logout, my account et my library quand on est connecté -->
+<!-- on démarre sur un login.php qui contient un lien vers signup.php -->
+
+<!-- include header.php => "navbar" qui contient my account, my library et logout quand on est connecté -->
 
 <h2>Welcome to our library</h2>
 
