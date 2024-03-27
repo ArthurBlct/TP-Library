@@ -23,6 +23,7 @@
 
 <p>Already have an account? <br><a href="login.php">Login here</a></p>
 
+<!------------ here's the separation from html ^-above and PHP below-v ------------>
 
 <?php
 
@@ -33,33 +34,19 @@ if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm'
     $psw = $_POST['password'];
     $confirm = $_POST['confirm'];
     if ($psw != $confirm) {
-        echo "Passwords do not match.";
+        echo "<br>Passwords do not match.";
     } else {
         $stm = $pdo->prepare("SELECT * FROM user WHERE name = :name");
         $stm->execute(['name' => $name]);
         $user = $stm->fetch();
         if ($user) {
-            echo "Username already exists.";
+            echo "<br>Username already exists.";
         } 
         else {
             $encrypted = password_hash($psw, PASSWORD_DEFAULT);
             $stm = $pdo->prepare("INSERT INTO user (name, password) VALUES (:name, :password)");
             $stm->execute(['name' => $name, 'password' => $encrypted]);
-            echo "User created.";
+            echo "<br>User created.";
         }
-
-
-
-
-
-        // $encrypted = password_hash($psw, PASSWORD_DEFAULT);
-        // echo "<br><br>Encrypted Password: " . $encrypted;
-        // $decrypt = password_verify($psw, $encrypted);
-        // echo "<br>Decrypted Password: " . $decrypt;
-        // echo "<br><br>⬆ password_verify() returns 1 if the password matches, 0 if it does not.";
     }
 }
-
-// stm 
-// SELECT * FROM user WHERE name = 'Toto';
-

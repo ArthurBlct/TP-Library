@@ -41,32 +41,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $psw = $_POST['password'];
 
-    // echo "<br>Username: " . $name . "<br>";
-    // echo "Password: " . $psw;
-
     $encrypted = password_hash($psw, PASSWORD_DEFAULT);
 
     $stm = $pdo->prepare("SELECT * FROM user WHERE name = :name");
     $stm->execute(['name' => $name]);
     $user = $stm->fetch();
     if ($user) {
-        // echo "<br>Username already exists.";
         $decrypt = password_verify($psw, $user['password']);
         if ($decrypt) {
-            echo "Login successful.";
+            echo "<br>Login successful.";
         } else {
-            echo "Login failed.";
+            echo "<br>Login failed.";
         }
     } else {
-        echo "Username does not exist.";
+        echo "<br>Username does not exist.";
     }
-
-
 }
-
-
-// echo "<br><br>Encrypted Password: " . $encrypted;
-
-// $decrypt = password_verify($psw, $encrypted);
-// echo "<br>Decrypted Password: " . $decrypt;
-// echo "<br><br>⬆ password_verify() returns 1 if the password matches, 0 if it does not.";
