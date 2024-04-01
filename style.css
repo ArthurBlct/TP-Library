@@ -6,18 +6,24 @@
 }
 #livre{
     
-    display:flex;
-    flex-wrap: wrap;
-    justify-content:center;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    text-align: center;
+    margin-top: 2rem;
+  
     
     
 }
-.livre{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content:center;
-    padding-right:10px;
+#searchInput {
+    border-radius: 0.5rem;
+    border-width: 3px;
 }
-
+img{
+    width: 50%;
+}
+.favoriteLivres img {
+    max-width: 100px; 
+}
 
 
