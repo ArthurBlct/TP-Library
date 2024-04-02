@@ -50,6 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $decrypt = password_verify($psw, $user['password']);
         if ($decrypt) {
             echo "<br>Login successful.";
+            sleep(3);
+            header('Location: index.php');
         } else {
             echo "<br>Login failed.";
         }
