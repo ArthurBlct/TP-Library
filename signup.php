@@ -47,6 +47,8 @@ if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm'
             $stm = $pdo->prepare("INSERT INTO user (name, password) VALUES (:name, :password)");
             $stm->execute(['name' => $name, 'password' => $encrypted]);
             echo "<br>User created.";
+        // Sould redirect to login page from #here
+            header('Location: login.php');
         }
     }
 }
