@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /*HEADER*/
 
@@ -57,3 +58,19 @@ img{
 
 
 /*Signup*/
+=======
+nav {
+    background-color: white;
+    color: violet;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+>>>>>>> d4634e3f4843a85d7103a2e1d28b1fce049b7c33

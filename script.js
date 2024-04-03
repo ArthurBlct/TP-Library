@@ -85,4 +85,17 @@ async function displayFavorites() {
             toggleFavorite(imdbID);
         });
     });
+<<<<<<< HEAD
 }
+=======
+
+    
+
+
+
+}
+
+
+
+
+>>>>>>> d4634e3f4843a85d7103a2e1d28b1fce049b7c33
