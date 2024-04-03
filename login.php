@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <?php include 'header.php'; ?>
 </head>
 
 <body>
@@ -27,7 +29,7 @@
 </form>
 
 <br>
-<a href="signup.php">Need an account?</a>
+<a href="signup.php">Créer un compte</a>
 <br>
 
 </body>
@@ -43,11 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $encrypted = password_hash($psw, PASSWORD_DEFAULT);
 
-    $stm = $pdo->prepare("SELECT * FROM user WHERE name = :name");
+    $stm = $pdo->prepare("SELECT * FROM users WHERE name = :name");
     $stm->execute(['name' => $name]);
-    $user = $stm->fetch();
-    if ($user) {
-        $decrypt = password_verify($psw, $user['password']);
+    $users = $stm->fetch();
+    if ($users) {
+        $decrypt = password_verify($psw, $users['password']);
         if ($decrypt) {
             echo "<br>Login successful.";
         } else {
@@ -57,3 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<br>Username does not exist.";
     }
 }
+
+
+if(isset($_SESSION['user'])) {
+    echo "<br>You are already logged in.";
+}
+else {
+    $_SESSION['user'] = $users['name'];
+    echo "<br> Bienvenue " . $_SESSION['user'];
+}
+

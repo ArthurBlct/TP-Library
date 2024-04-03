@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="styles.css">
+<?php include 'header.php'; ?>
 <h1>Signup</h1>
 
 <form action="" method="post">
@@ -21,9 +23,9 @@
     </div>
 </form>
 
-<p>Already have an account? <br><a href="login.php">Login here</a></p>
+<p>Déjà enregistré ? <br> <a href="login.php">Login ici</a></p>
 
-<!------------ here's the separation from html ^-above and PHP below-v ------------>
+
 
 <?php
 
@@ -34,19 +36,21 @@ if (isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm'
     $psw = $_POST['password'];
     $confirm = $_POST['confirm'];
     if ($psw != $confirm) {
-        echo "<br>Passwords do not match.";
+        echo "<br>Mots de passe ne correspondent pas.";
     } else {
-        $stm = $pdo->prepare("SELECT * FROM user WHERE name = :name");
+        $stm = $pdo->prepare("SELECT * FROM users WHERE name = :name");
         $stm->execute(['name' => $name]);
-        $user = $stm->fetch();
-        if ($user) {
-            echo "<br>Username already exists.";
+        $users = $stm->fetch();
+        if ($users) {
+            echo "<br>L'utilisateur existe déjà.";
         } 
         else {
             $encrypted = password_hash($psw, PASSWORD_DEFAULT);
-            $stm = $pdo->prepare("INSERT INTO user (name, password) VALUES (:name, :password)");
+            $stm = $pdo->prepare("INSERT INTO users (name, password) VALUES (:name, :password)");
             $stm->execute(['name' => $name, 'password' => $encrypted]);
-            echo "<br>User created.";
+            echo "<br>compte créé avec succès.";
         }
     }
 }
+
+
